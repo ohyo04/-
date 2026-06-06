@@ -26,19 +26,14 @@
     -webkit-user-select: none; user-select: none; overflow: hidden;
   }
   #app { position: fixed; inset: 0; display: flex; flex-direction: column; }
-  #app::before {
-    content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  #app::before { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
     background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 4px 4px; mix-blend-mode: overlay; opacity:.6;
-  }
-  #app::after {
-    content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
-    box-shadow: inset 0 0 0 2px var(--line), inset 0 0 90px rgba(0,0,0,0.55);
-  }
+    background-size: 4px 4px; mix-blend-mode: overlay; opacity:.6; }
+  #app::after { content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+    box-shadow: inset 0 0 0 2px var(--line), inset 0 0 90px rgba(0,0,0,0.55); }
 
-  /* ---------- top bar ---------- */
   .topbar { position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between;
-    padding: max(8px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) 8px max(14px, env(safe-area-inset-left)); }
+    padding: max(8px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) 6px max(14px, env(safe-area-inset-left)); }
   .brand { display:flex; align-items:center; gap:8px; letter-spacing:.2em; text-transform:uppercase;
     font-weight:600; font-size:12px; color:var(--gold); white-space:nowrap; }
   .suits { letter-spacing:1px; opacity:.85; }
@@ -48,13 +43,12 @@
     background:rgba(0,0,0,0.22); border:1px solid var(--line); color:var(--bone); cursor:pointer; }
   .icon-btn:active { transform:scale(.92); }
 
-  /* ---------- stage ---------- */
-  .stage { position:relative; z-index:2; flex:1; min-height:0; display:flex; }
-  .left { display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:0; }
-  .right { display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .stage { position:relative; z-index:2; flex:1; min-height:0; display:flex; flex-direction:column; width:100%; margin:0 auto; }
+  .content { flex:1; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .bottom { display:flex; flex-direction:column; align-items:center; }
 
   .lvlname { letter-spacing:.18em; text-transform:uppercase; color:var(--gold); font-weight:600;
-    display:flex; align-items:center; gap:8px; }
+    display:flex; align-items:center; gap:8px; text-align:center; }
   .timer { font-family:var(--mono); font-weight:700; font-variant-numeric: tabular-nums;
     line-height:.9; letter-spacing:.01em; color:var(--bone); text-shadow:0 4px 30px rgba(0,0,0,.45); }
   .timer.low { color:var(--red); text-shadow:0 0 26px rgba(239,91,80,.55); }
@@ -66,6 +60,17 @@
     background:linear-gradient(90deg,var(--gold-2),var(--gold)); transition:width .35s linear; }
   .bar.low > i { background:linear-gradient(90deg,#ff7a6e,var(--red)); }
 
+  .now { display:flex; }
+  .blk { flex:1; display:flex; flex-direction:column; align-items:center; text-align:center;
+    border:1px solid var(--line); background:rgba(0,0,0,0.26); }
+  .blk-lab { letter-spacing:.16em; text-transform:uppercase; opacity:.7; }
+  .blk-val { font-family:var(--mono); font-weight:700; color:var(--gold-2); line-height:1; font-variant-numeric:tabular-nums; }
+
+  .nextbox { display:flex; align-items:baseline; justify-content:center; flex-wrap:wrap; gap:10px;
+    border:1px solid var(--line); background:rgba(0,0,0,0.22); }
+  .nlabel { letter-spacing:.18em; text-transform:uppercase; color:var(--gold); opacity:.85; white-space:nowrap; }
+  .nval { font-family:var(--mono); font-weight:700; color:var(--bone); font-variant-numeric:tabular-nums; }
+
   .controls { display:flex; align-items:center; justify-content:center; }
   .rbtn { border-radius:999px; display:grid; place-items:center; cursor:pointer;
     background:rgba(0,0,0,0.25); border:1px solid var(--line); color:var(--bone); }
@@ -74,70 +79,55 @@
     background:linear-gradient(180deg,var(--gold-2),var(--gold));
     box-shadow:0 8px 26px rgba(217,184,92,.42), inset 0 1px 0 rgba(255,255,255,.6); }
   .play:active { transform:scale(.94); }
-
-  .panel-h { font-size:11px; letter-spacing:.2em; text-transform:uppercase; opacity:.55; }
-  .now { display:flex; }
-  .blk { display:flex; }
-  .blk-lab { letter-spacing:.16em; text-transform:uppercase; opacity:.7; }
-  .blk-val { font-family:var(--mono); font-weight:700; color:var(--gold-2); line-height:1; font-variant-numeric:tabular-nums; }
-
-  .nextbox { border:1px solid var(--line); background:rgba(0,0,0,0.22); border-radius:14px; }
-  .nlabel { font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); opacity:.85; }
-  .nval { font-family:var(--mono); font-weight:700; color:var(--bone); font-variant-numeric:tabular-nums; }
-
-  .right-foot { display:flex; align-items:center; justify-content:space-between; gap:8px; }
-  .meta { font-size:11px; letter-spacing:.12em; text-transform:uppercase; opacity:.55; white-space:nowrap; }
+  .foot { display:flex; align-items:center; justify-content:center; gap:14px; }
+  .meta { letter-spacing:.12em; text-transform:uppercase; opacity:.55; white-space:nowrap; }
   .chip { display:inline-flex; align-items:center; gap:6px; padding:7px 12px; border-radius:999px;
     font-size:12px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
     background:rgba(0,0,0,0.22); border:1px solid var(--line); color:var(--bone); font-family:var(--sans); white-space:nowrap; }
   .chip:active { transform:scale(.95); }
 
-  .rotate-hint { display:none; }
-
-  /* ---------- LANDSCAPE (standard) ---------- */
+  /* ---------- LANDSCAPE (single column) ---------- */
   @media (orientation: landscape) {
-    .stage { flex-direction: row; }
-    .left { flex: 1.45; gap: 1.6vh; padding: 1vh 2vw; }
-    .right { flex: 1; gap: 1.4vh; padding: 1.5vh 3.2vw; border-left:1px solid var(--line); }
-    .lvlname { font-size: clamp(0.85rem, 3vh, 1.4rem); }
-    .timer { font-size: clamp(3rem, 16vw, 30vh); }
-    .bar { width: min(92%, 540px); }
-    .controls { gap: 4.5vw; margin-top: .6vh; }
-    .rbtn { width: clamp(46px, 8vh, 60px); height: clamp(46px, 8vh, 60px); }
-    .play { width: clamp(64px, 12vh, 86px); height: clamp(64px, 12vh, 86px); }
-    .now { flex-direction: column; gap: 1.1vh; width:100%; }
-    .blk { flex-direction: row; justify-content: space-between; align-items: baseline;
-      border-bottom:1px solid var(--line); padding-bottom: .8vh; }
-    .blk-lab { font-size: clamp(.75rem, 2.4vh, 1rem); }
-    .blk-val { font-size: clamp(1.5rem, 8vh, 2.7rem); }
-    .nextbox { padding: 1.2vh 1.4vh; margin-top:.4vh; }
-    .nlabel { margin-bottom: .4vh; }
-    .nval { font-size: clamp(1.1rem, 4.6vh, 1.7rem); }
-    .right-foot { margin-top: .4vh; }
+    .stage { max-width: 720px; padding: .8vh max(16px,4vw) 1.2vh; }
+    .content { gap: 1.1vh; }
+    .bottom { gap: .9vh; margin-top: .6vh; }
+    .lvlname { font-size: clamp(.78rem, 2.4vh, 1.2rem); }
+    .timer { font-size: clamp(2.8rem, 25vh, 7rem); }
+    .bar { width: min(92%, 560px); }
+    .now { gap: 8px; width: min(96%, 560px); }
+    .blk { padding: .7vh 6px; border-radius: 12px; }
+    .blk-lab { font-size: clamp(.6rem, 1.6vh, .78rem); margin-bottom: .3vh; }
+    .blk-val { font-size: clamp(1.1rem, 4.4vh, 1.9rem); }
+    .nextbox { padding: .7vh 1.6vh; width: min(96%, 560px); border-radius: 12px; }
+    .nlabel { font-size: clamp(.58rem, 1.6vh, .72rem); }
+    .nval { font-size: clamp(1rem, 3.6vh, 1.45rem); }
+    .controls { gap: 5vw; }
+    .rbtn { width: clamp(44px, 7.5vh, 56px); height: clamp(44px, 7.5vh, 56px); }
+    .play { width: clamp(58px, 11vh, 76px); height: clamp(58px, 11vh, 76px); }
+    .foot { gap: 12px; }
+    .meta { font-size: 11px; }
   }
 
-  /* ---------- PORTRAIT (fallback) ---------- */
+  /* ---------- PORTRAIT ---------- */
   @media (orientation: portrait) {
-    .stage { flex-direction: column; }
-    .left { padding: 10px 16px 6px; gap: 14px; }
-    .right { padding: 6px 16px calc(16px + env(safe-area-inset-bottom)); gap: 12px; }
+    .stage { max-width: 560px; padding: 14px 20px calc(18px + env(safe-area-inset-bottom)); }
+    .content { gap: 18px; }
+    .bottom { gap: 16px; padding-bottom: 4px; }
     .lvlname { font-size: clamp(1.1rem, 5vw, 1.5rem); }
-    .timer { font-size: clamp(4rem, 22vw, 9rem); }
+    .timer { font-size: clamp(4rem, 23vw, 9rem); }
     .bar { width: min(560px, 100%); }
-    .controls { gap: 18px; margin-top: 4px; }
-    .rbtn { width: 56px; height: 56px; }
-    .play { width: 80px; height: 80px; }
-    .now { flex-direction: row; gap: 10px; }
-    .blk { flex-direction: column; align-items: center; text-align:center; flex:1;
-      border:1px solid var(--line); background:rgba(0,0,0,0.26); border-radius:14px; padding:10px 8px; }
-    .blk-lab { font-size: 12px; margin-bottom: 4px; }
-    .blk-val { font-size: clamp(1.6rem, 8.5vw, 2.6rem); }
-    .nextbox { padding: 12px 14px; }
-    .nlabel { margin-bottom: 6px; }
-    .nval { font-size: clamp(1.2rem, 6vw, 1.7rem); }
-    .rotate-hint { display:flex; align-items:center; justify-content:center; gap:6px;
-      position:relative; z-index:2; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
-      color:var(--gold); opacity:.7; padding:2px 0 4px; }
+    .now { gap: 10px; width: 100%; }
+    .blk { padding: 12px 8px; border-radius: 16px; }
+    .blk-lab { font-size: 12px; margin-bottom: 5px; }
+    .blk-val { font-size: clamp(1.7rem, 9vw, 2.8rem); }
+    .nextbox { padding: 12px 16px; width: 100%; border-radius: 16px; }
+    .nlabel { font-size: 11px; }
+    .nval { font-size: clamp(1.3rem, 6.5vw, 1.9rem); }
+    .controls { gap: 20px; }
+    .rbtn { width: 58px; height: 58px; }
+    .play { width: 84px; height: 84px; }
+    .foot { gap: 16px; }
+    .meta { font-size: 12px; }
   }
 
   /* ---------- settings sheet ---------- */
@@ -167,7 +157,11 @@
     padding:12px; border-radius:12px; background:rgba(217,184,92,0.12);
     border:1px dashed var(--line); color:var(--gold-2); font-size:14px; letter-spacing:.06em; text-transform:uppercase; font-family:var(--sans); }
   .add-btn:active { transform:scale(.97); }
-  .danger { width:100%; padding:12px; border-radius:12px; margin-top:8px; cursor:pointer;
+  .btn-secondary { width:100%; padding:12px; border-radius:12px; cursor:pointer;
+    background:rgba(217,184,92,0.14); border:1px solid var(--gold); color:var(--gold-2);
+    font-size:13px; letter-spacing:.08em; text-transform:uppercase; font-family:var(--sans); }
+  .btn-secondary:active { transform:scale(.98); }
+  .danger { width:100%; padding:12px; border-radius:12px; margin-top:10px; cursor:pointer;
     background:rgba(239,91,80,0.12); border:1px solid rgba(239,91,80,0.4);
     color:#ff8278; font-size:13px; letter-spacing:.1em; text-transform:uppercase; font-family:var(--sans); }
   .note { font-size:13px; opacity:.6; text-align:center; margin-top:14px; line-height:1.6; }
@@ -188,33 +182,29 @@
     </div>
   </div>
 
-  <div class="rotate-hint">↻ 横向きにすると大きく表示されます</div>
-
   <div class="stage">
-    <div class="left">
+    <div class="content">
       <div class="lvlname" id="lvlname"></div>
       <div class="timer" id="timer">00:00</div>
       <div class="bar" id="bar"><i id="barFill"></i></div>
+      <div class="now" id="blinds">
+        <div class="blk"><span class="blk-lab">SB</span><span class="blk-val" id="sb">0</span></div>
+        <div class="blk"><span class="blk-lab">BB</span><span class="blk-val" id="bb">0</span></div>
+        <div class="blk"><span class="blk-lab">Ante</span><span class="blk-val" id="ante">0</span></div>
+      </div>
+      <div class="nextbox">
+        <span class="nlabel">次のレベル →</span>
+        <span class="nval" id="next">—</span>
+      </div>
+    </div>
+    <div class="bottom">
       <div class="controls">
         <button class="rbtn" id="prevBtn" aria-label="前のレベル"></button>
         <button class="play" id="playBtn" aria-label="再生/一時停止"></button>
         <button class="rbtn" id="nextBtn" aria-label="次のレベル"></button>
       </div>
-    </div>
-
-    <div class="right">
-      <div class="panel-h" id="panelH">現在のブラインド</div>
-      <div class="now" id="blinds">
-        <div class="blk"><span class="blk-lab">Small Blind</span><span class="blk-val" id="sb">0</span></div>
-        <div class="blk"><span class="blk-lab">Big Blind</span><span class="blk-val" id="bb">0</span></div>
-        <div class="blk"><span class="blk-lab">Ante</span><span class="blk-val" id="ante">0</span></div>
-      </div>
-      <div class="nextbox">
-        <div class="nlabel">次のレベル →</div>
-        <div class="nval" id="next">—</div>
-      </div>
-      <div class="right-foot">
-        <div class="meta" id="meta"></div>
+      <div class="foot">
+        <span class="meta" id="meta"></span>
         <button class="chip" id="resetChip"></button>
       </div>
     </div>
@@ -231,6 +221,7 @@
         <button class="add-btn" id="addLevelBtn"></button>
         <button class="add-btn" id="addBreakBtn"></button>
       </div>
+      <button class="btn-secondary" id="defaultBtn">ブラインドを初期設定に戻す</button>
       <button class="danger" id="restartBtn">トーナメントを最初に戻す</button>
       <p class="note">数字をタップして自由に書き換えできます。<br>Ante は「ビッグブラインドアンティ」を想定しています。<br>設定はこの端末に自動保存されます。</p>
     </div>
@@ -272,15 +263,13 @@
     { sb: 4000, bb: 8000, ante: 8000, minutes: 15, isBreak: false },
     { sb: 5000, bb: 10000, ante: 10000, minutes: 15, isBreak: false }
   ];
+  function freshDefaults() { return DEFAULT_LEVELS.map(function (l) { return Object.assign({}, l); }); }
 
   var KEY = "holdem_clock_v1";
   function loadState() {
     try {
-      var raw = localStorage.getItem(KEY);
-      if (!raw) return null;
-      var d = JSON.parse(raw);
-      if (!d || !Array.isArray(d.levels) || !d.levels.length) return null;
-      return d;
+      var raw = localStorage.getItem(KEY); if (!raw) return null;
+      var d = JSON.parse(raw); if (!d || !Array.isArray(d.levels) || !d.levels.length) return null; return d;
     } catch (e) { return null; }
   }
   function save() {
@@ -288,7 +277,7 @@
   }
 
   var saved = loadState();
-  var levels = saved ? saved.levels : DEFAULT_LEVELS.map(function (l) { return Object.assign({}, l); });
+  var levels = saved ? saved.levels : freshDefaults();
   var currentIndex = saved ? Math.min(saved.currentIndex || 0, levels.length - 1) : 0;
   var soundOn = saved ? (saved.soundOn !== false) : true;
   var timeLeft = (saved && typeof saved.timeLeft === "number") ? saved.timeLeft : levels[currentIndex].minutes * 60;
@@ -297,11 +286,11 @@
   var $ = function (id) { return document.getElementById(id); };
   var el = {
     pill: $("pill"), lvlname: $("lvlname"), timer: $("timer"), bar: $("bar"), barFill: $("barFill"),
-    blinds: $("blinds"), panelH: $("panelH"), sb: $("sb"), bb: $("bb"), ante: $("ante"), next: $("next"), meta: $("meta"),
+    blinds: $("blinds"), sb: $("sb"), bb: $("bb"), ante: $("ante"), next: $("next"), meta: $("meta"),
     playBtn: $("playBtn"), prevBtn: $("prevBtn"), nextBtn: $("nextBtn"),
     resetChip: $("resetChip"), soundChip: $("soundChip"), gearBtn: $("gearBtn"),
     sheet: $("sheet"), closeBtn: $("closeBtn"), lvllist: $("lvllist"),
-    addLevelBtn: $("addLevelBtn"), addBreakBtn: $("addBreakBtn"), restartBtn: $("restartBtn")
+    addLevelBtn: $("addLevelBtn"), addBreakBtn: $("addBreakBtn"), defaultBtn: $("defaultBtn"), restartBtn: $("restartBtn")
   };
 
   el.prevBtn.innerHTML = ICON.prev;
@@ -333,9 +322,7 @@
   function playWarn() { if (!soundOn) return; try { beep(880,0,0.3,0.25); } catch (e) {} }
   function vibrate(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
 
-  function requestWakeLock() {
-    try { if ("wakeLock" in navigator) { navigator.wakeLock.request("screen").then(function (w) { wakeLock = w; }).catch(function(){}); } } catch (e) {}
-  }
+  function requestWakeLock() { try { if ("wakeLock" in navigator) { navigator.wakeLock.request("screen").then(function (w) { wakeLock = w; }).catch(function(){}); } } catch (e) {} }
   function releaseWakeLock() { try { if (wakeLock) { wakeLock.release(); wakeLock = null; } } catch (e) {} }
   document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible" && isRunning) requestWakeLock(); });
 
@@ -358,11 +345,9 @@
     if (lvl.isBreak) {
       el.lvlname.innerHTML = ICON.coffee + " 休憩 / Break";
       el.blinds.style.display = "none";
-      el.panelH.style.display = "none";
     } else {
       el.lvlname.textContent = "Level " + playNo(currentIndex);
       el.blinds.style.display = "";
-      el.panelH.style.display = "";
       el.sb.textContent = nf(lvl.sb);
       el.bb.textContent = nf(lvl.bb);
       el.ante.textContent = lvl.ante ? nf(lvl.ante) : "—";
@@ -433,19 +418,22 @@
   function goLevel(i) { if (i < 0 || i >= levels.length) return; currentIndex = i; timeLeft = levels[i].minutes * 60; warned = false; if (isRunning) endTime = Date.now() + timeLeft * 1000; save(); renderMain(); }
   function resetLevel() { timeLeft = levels[currentIndex].minutes * 60; warned = false; if (isRunning) endTime = Date.now() + timeLeft * 1000; save(); renderMain(); }
   function restart() { isRunning = false; endTime = null; stopTick(); currentIndex = 0; timeLeft = levels[0].minutes * 60; warned = false; releaseWakeLock(); save(); renderMain(); }
+  function resetDefaults() {
+    levels = freshDefaults(); currentIndex = 0; timeLeft = levels[0].minutes * 60;
+    isRunning = false; endTime = null; stopTick(); warned = false; releaseWakeLock();
+    save(); renderSettings(); renderMain();
+  }
   function clampIndex() { if (currentIndex >= levels.length) { currentIndex = Math.max(0, levels.length - 1); timeLeft = levels[currentIndex].minutes * 60; isRunning = false; endTime = null; stopTick(); } }
 
   el.lvllist.addEventListener("click", function (e) {
-    var btn = e.target.closest("button[data-act]");
-    if (!btn) return;
+    var btn = e.target.closest("button[data-act]"); if (!btn) return;
     var i = parseInt(btn.getAttribute("data-i"), 10), act = btn.getAttribute("data-act");
     if (act === "break") levels[i].isBreak = !levels[i].isBreak;
     else if (act === "del") { levels.splice(i, 1); if (!levels.length) levels.push({ sb: 100, bb: 200, ante: 0, minutes: 15, isBreak: false }); clampIndex(); }
     save(); renderSettings(); renderMain();
   });
   el.lvllist.addEventListener("input", function (e) {
-    var inp = e.target.closest("input[data-field]");
-    if (!inp) return;
+    var inp = e.target.closest("input[data-field]"); if (!inp) return;
     var i = parseInt(inp.getAttribute("data-i"), 10), f = inp.getAttribute("data-field");
     levels[i][f] = inp.value === "" ? 0 : (parseInt(inp.value, 10) || 0); save();
   });
@@ -468,6 +456,11 @@
     save(); renderSettings();
   });
   el.addBreakBtn.addEventListener("click", function () { levels.push({ sb: 0, bb: 0, ante: 0, minutes: 10, isBreak: true }); save(); renderSettings(); });
+  el.defaultBtn.addEventListener("click", function () {
+    var ok = true;
+    try { ok = window.confirm("ブラインド表を初期設定に戻しますか？\n編集した内容は消えます。"); } catch (e) { ok = true; }
+    if (ok) resetDefaults();
+  });
   el.restartBtn.addEventListener("click", function () { restart(); closeSettings(); });
 
   renderMain();
